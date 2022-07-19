@@ -8,6 +8,13 @@ import java.io.IOException;
 @WebServlet(name = "ViewProfileServlet", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        String username = (String) request.getSession().getAttribute("user");
+        System.out.println(username);
+        if (username == null) {
+            response.sendRedirect("/login");
+        } else {
+            request.setAttribute("username", username);
+            request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        }
     }
 }
