@@ -1,3 +1,8 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ad {
     private long id;
     private long userId;
@@ -15,6 +20,20 @@ public class Ad {
         this.userId = userId;
         this.title = title;
         this.description = description;
+    }
+
+    public static List<Ad> fromResultSet(ResultSet rs) throws SQLException {
+        List<Ad> ads = new ArrayList<Ad>();
+        while (rs.next()) {
+            Ad ad = new Ad(
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("title"),
+                    rs.getString("description")
+            );
+            ads.add(ad);
+        }
+        return ads;
     }
 
     public long getId() {
