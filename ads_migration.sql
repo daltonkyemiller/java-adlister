@@ -1,4 +1,5 @@
 USE adlister_db;
+
 CREATE TABLE users
 (
     id       INT AUTO_INCREMENT NOT NULL,
